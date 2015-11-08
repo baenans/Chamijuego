@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/firebase-element/firebase-collection.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="game-data">
+	<template>
+		<style>
+		</style>
+
+		 <firebase-collection location="https://expression-express.firebaseio.com/castellano"
+                         data="{{words}}"
+                         on-firebase-value="_firebaseLoaded">
+    	</firebase-collection>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'game-data',
+			properties: {
+        		words: {
+          			notify: true,
+          		},
+          		language: {
+          			observer: '_languageChanged',
+        		},
+        		firebaseConnected: {
+          			notify: true,
+          			value: false,
+        		}
+        	},
+        	_firebaseLoaded: function(){
+        		this.firebaseConnected = true;
+        	},
+        	_languageChanged: function(language){
+        		console.log(language);
+        	}
+		});
+	</script>
+</dom-module>

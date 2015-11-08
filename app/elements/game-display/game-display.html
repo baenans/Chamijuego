@@ -1,0 +1,40 @@
+<dom-module id="game-display">
+	<template>
+		<style>
+			:host {
+				display: block;
+				background-color: var(--accent-color);
+				color: white;
+				font-size: 3em;
+				padding: 0.6em;
+				height: 1.2em;
+				text-align: center;
+			}
+		</style>
+		<span id="word">{{word}}</span>
+	</template>
+	<script>
+		Polymer({
+			is: 'game-display',
+			properties: {
+        		word: {
+        			type: String,
+          			observer: '_displayWord',
+          		},
+          		time:{
+          			value: 1500
+          		}
+          	},
+          	listeners: {
+        		click: '_displayWord'
+      		},
+          	_displayWord: function(){
+          		this.$.word.style.display = 'inline';
+          		
+          		this.async(function(){ 
+          			this.$.word.style.display = 'none'; 
+          		}, this.time);
+          	}
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,65 @@
+<link rel="import" href="../game-display/game-display.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="game-board">
+	<template>
+		<style>
+			:host{
+				display: block;
+			}
+
+			#getWord{
+				font-size: 3em;
+				padding: 0.6em;
+				height: 1.2em;
+				text-align: center;
+			}
+
+		</style>
+		<game-display word="{{word}}"></game-display>
+
+
+
+		<paper-material id="getWord"elevation="1" on-click="_getRandomWord">
+			Get word!
+
+		</paper-material>
+
+
+
+	</template>
+	<script>
+		Polymer({
+			is: 'game-board',
+			properties: {
+        		words: {
+          			type: Array
+          		},
+				visited: {
+					type: Array,
+					value: []
+				},
+          		word: String,
+        		firebaseConnected: {
+          			observer: '_firebaseLoaded',
+        		}
+        	},
+        	_getRandomWord: function(){
+        		if (this.visited.length === this.words.length){
+        			this.visited = [];
+        		}
+        		var word = this.words[Math.floor(Math.random()*this.words.length)];
+        		while(this.visited.indexOf(word) !== -1){
+        			word = this.words[Math.floor(Math.random()*this.words.length)];
+        		}
+        		this.visited.push(word);
+        		this.word = word.value;
+        	},
+        	_firebaseLoaded: function(e){
+        		if (this.word==null&&e){
+        			this._getRandomWord();
+        		}
+        	}
+		});
+	</script>
+</dom-module>

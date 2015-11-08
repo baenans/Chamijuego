@@ -1,0 +1,41 @@
+<link rel="import" href="../word-input/word-input.html">
+<link rel="import" href="../database-word/database-word.html">
+
+<dom-module id="game-database">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+
+		<word-input 
+			on-add-word="_addWord"></word-input>
+
+		<template is="dom-repeat" id="words" items="{{words}}" as="word">
+
+			<database-word 
+				word="{{word}}"
+				on-delete-word="_removeWord">
+		</template>
+
+		
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'game-database',
+			properties: {
+        		words: {
+          			type: Array
+          		},
+          	},
+          	_addWord: function(w) {
+		        this.push('words', w.detail);
+		    },
+		    _removeWord: function(w) {
+		        this.arrayDelete('words', w.detail);
+		    },
+		});
+	</script>
+</dom-module>

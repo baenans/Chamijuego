@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="word-input">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+		</style>
+
+		<paper-input
+			 	id="wordInput"
+                no-label-float
+                label="Add a word"
+                on-keydown="_checkAdd" style="display:inline-block">
+      	</paper-input>
+
+      	<paper-button on-tap="_add" style="display:inline-block">Add</paper-button>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'word-input',
+			_checkAdd: function(e) {
+		      if (e.keyCode === 13) {
+		        this._add();
+		      }
+		    },
+		    _add: function() {
+		      if (this.$.wordInput.value) {
+		        this.fire('add-word', this.$.wordInput.value);
+		        this.$.wordInput.value = null;
+		      }
+		    }
+		});
+	</script>
+</dom-module>

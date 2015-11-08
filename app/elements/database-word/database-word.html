@@ -1,0 +1,37 @@
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html" >
+
+<dom-module id="database-word">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+		</style>
+		
+		{{word.value}}
+		
+		<paper-icon-button 
+			icon="icons:remove-circle-outline"
+			class="btn-cancel"
+			aria-label="Delete"
+			tabindex="0"
+			on-tap="_onDelete"
+			style="color: red;">
+      	</paper-icon-button>
+
+
+	</template>
+	<script>
+		Polymer({
+			is: 'database-word',
+			properties:{
+				word:Object
+			},
+			_onDelete: function(){
+				this.fire('delete-word', this.word);
+			}
+		});
+	</script>
+</dom-module>
