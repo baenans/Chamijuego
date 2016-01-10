@@ -22,41 +22,42 @@
   </template>
 
   <script type="text/javascript">
-  "use strict";
-    let beep = new Audio("elements/game-beeper/audios/beep.mp3");
-    let finalBeep = new Audio('elements/game-beeper/audios/finalBeep.mp3');
+  'use strict';
+    var beep = new Audio('elements/game-beeper/audios/beep.mp3');
+    var finalBeep = new Audio('elements/game-beeper/audios/finalBeep.mp3');
 
     (function(){
     Polymer({
-        is: "game-beeper",
+        is: 'game-beeper',
         listeners: {
           'start.tap': '_startSound'
         },
         _startSound: function(){
-          playSound(beep, 1100, 4);
-          // playSound(beep, 1000, 13);
-          // playSound(beep, 750, 11);
-          // playSound(beep, 400, 9);
-          // playSound(finalBeep, 100, 1);
 
-          function playSound(sound, speed, length){
-            let i = 0;
-            let interval = setInterval(function(){
+            function playSound(sound, speed, length){
+            var i = 0;
+            var interval = setInterval(function(){
               sound.play();
-              console.log("I have played " + sound + " at the speed of " + speed);
+              console.log('I have played ' + sound + ' at the speed of ' + speed);
               i++;
-              if(i == length){
+              if(i === length){
                 if((speed-150)<100){
                   window.clearInterval(interval);
                   finalBeep.play();
                 }else{
                   window.clearInterval(interval);
-                  console.log("jus");
+                  console.log('jus');
                   playSound(beep, speed-150, length+2);
                 }
               }
             }, speed);
           }
+
+          playSound(beep, 1100, 4);
+          // playSound(beep, 1000, 13);
+          // playSound(beep, 750, 11);
+          // playSound(beep, 400, 9);
+          // playSound(finalBeep, 100, 1);
         }
       });
     })();
