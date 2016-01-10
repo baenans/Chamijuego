@@ -6,7 +6,7 @@
 		<style>
 		</style>
 
-		 <firebase-collection location="https://chamijuego.firebaseio.com/castellano"
+		 <firebase-collection location="{{location}}"
                          data="{{words}}"
                          on-firebase-value="_firebaseLoaded">
     	</firebase-collection>
@@ -19,9 +19,6 @@
         		words: {
           			notify: true,
           		},
-          		language: {
-          			observer: '_languageChanged',
-        		},
         		firebaseConnected: {
           			notify: true,
           			value: false,
@@ -29,9 +26,6 @@
         	},
         	_firebaseLoaded: function(){
         		this.firebaseConnected = true;
-        	},
-        	_languageChanged: function(language){
-        		console.log(language);
         	}
 		});
 	</script>

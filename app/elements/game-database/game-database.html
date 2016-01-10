@@ -1,5 +1,6 @@
 <link rel="import" href="../word-input/word-input.html">
 <link rel="import" href="../database-word/database-word.html">
+<link rel="import" href="../language-selector/language-selector.html">
 
 <dom-module id="game-database">
 	<template>
@@ -8,16 +9,11 @@
 				display: block;
 			}
 		</style>
-
-		<word-input 
+		
+		<word-input
 			on-add-word="_addWord"></word-input>
 
-		<template is="dom-repeat" id="words" items="{{words}}" as="word">
-
-			<database-word 
-				word="{{word}}"
-				on-delete-word="_removeWord">
-		</template>
+		<p>{{lastWord}}</p>
 
 		
 		
@@ -29,9 +25,16 @@
         		words: {
           			type: Array
           		},
+          		lastWord: {
+          			value: 'Insert a word in the database!',
+          		}
           	},
           	_addWord: function(w) {
 		        this.push('words', w.detail);
+		        this.lastWord = [ w.detail, ' added to the database'].join('');
+		        this.async(function(){
+		        	this.lastWord = 'Insert a word in the database!';
+		        },3000);
 		    },
 		    _removeWord: function(w) {
 		        this.arrayDelete('words', w.detail);
